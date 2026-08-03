@@ -1,23 +1,72 @@
+// ===============================
+// Brandon Portfolio - script.js
+// ===============================
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const target = document.querySelector(this.getAttribute('href'));
+
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Highlight active navigation link while scrolling
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+
+        if (pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+        }
+    });
+});
+
+// Fade-in animation when scrolling
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+
+    });
+}, {
+    threshold: 0.2
+});
+
+document.querySelectorAll("section").forEach(section => {
+    section.classList.add("hidden");
+    observer.observe(section);
+});
+
 // Welcome message
-window.addEventListener("load", function () {
-    console.log("Welcome to Brandon Web Designs!");
+window.addEventListener("load", () => {
+    console.log("Welcome to Brandon's Portfolio!");
 });
 
-// Navigation background effect
-const nav = document.querySelector("nav");
+// Current year in footer (optional)
+const footer = document.querySelector("footer p");
 
-window.addEventListener("scroll", function () {
-
-    if (window.scrollY > 50) {
-
-        nav.style.background = "#0b1120";
-        nav.style.boxShadow = "0 8px 25px rgba(0,0,0,.5)";
-
-    } else {
-
-        nav.style.background = "#111827";
-        nav.style.boxShadow = "0 5px 20px rgba(0,0,0,.4)";
-
-    }
-
-});
+if (footer) {
+    footer.innerHTML = `© ${new Date().getFullYear()} Brandon Nzengu. All rights reserved.`;
+}
