@@ -259,3 +259,6 @@ nav ul li{
     width:150px;
     height:150px;
 }
+.nav-links a.active {
+    color: #00b894;
+}
