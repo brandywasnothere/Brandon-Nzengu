@@ -33,3 +33,13 @@ footer{text-align:center;padding:25px;background:#111827}
     height:60px;
     object-fit:contain;
 }
+#contact {
+    display: block;
+    text-align: center;
+    padding: 80px 8%;
+    background: #0f172a;
+}
+
+footer {
+    display: block;
+}
