@@ -1,72 +1,52 @@
-// ===============================
-// Brandon Portfolio - script.js
-// ===============================
+// Mobile Navigation Toggle
+const menuToggle = document.querySelector(".menu-toggle");
+const navLinks = document.querySelector(".nav-links");
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', function (e) {
-        e.preventDefault();
+if (menuToggle) {
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+}
 
-        const target = document.querySelector(this.getAttribute('href'));
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
 
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    });
+    const target = document.querySelector(this.getAttribute("href"));
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth"
+      });
+
+      if (navLinks) {
+        navLinks.classList.remove("active");
+      }
+    }
+  });
 });
 
-// Highlight active navigation link while scrolling
+// Highlight Active Navigation Link
 const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav a");
+const navItems = document.querySelectorAll(".nav-links a");
 
 window.addEventListener("scroll", () => {
-    let current = "";
+  let current = "";
 
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120;
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 120;
 
-        if (pageYOffset >= sectionTop) {
-            current = section.getAttribute("id");
-        }
-    });
+    if (pageYOffset >= sectionTop) {
+      current = section.getAttribute("id");
+    }
+  });
 
-    navLinks.forEach(link => {
-        link.classList.remove("active");
+  navItems.forEach(link => {
+    link.classList.remove("active");
 
-        if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-        }
-    });
+    if (link.getAttribute("href") === "#" + current) {
+      link.classList.add("active");
+    }
+  });
 });
-
-// Fade-in animation when scrolling
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        }
-
-    });
-}, {
-    threshold: 0.2
-});
-
-document.querySelectorAll("section").forEach(section => {
-    section.classList.add("hidden");
-    observer.observe(section);
-});
-
-// Welcome message
-window.addEventListener("load", () => {
-    console.log("Welcome to Brandon's Portfolio!");
-});
-
-// Current year in footer (optional)
-const footer = document.querySelector("footer p");
-
-if (footer) {
-    footer.innerHTML = `© ${new Date().getFullYear()} Brandon Nzengu. All rights reserved.`;
-}
